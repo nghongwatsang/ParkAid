@@ -1,16 +1,62 @@
 [
-    {
-      "id": 1,
-      "name": "One",
-      "latitude": 42.729990,
-      "longitude": -73.677518
-    },
-    {
-      "id": 2,
-      "name": "Two",
-      "latitude": 42.729940,
-      "longitude":  -73.677534
-    }
-
+  {
+    "id": 1,
+    "latitude": -73.677518,
+    "longitude": 42.729990
+  },
+  {
+    "id": 2,
+    "latitude": -73.677534,
+    "longitude": 42.729940
+  },
+  {
+    "id": 3,
+    "latitude": -73.676303,
+    "longitude": 42.729653
+  },
+  {
+    "id": 4,
+    "latitude": -73.676266,
+    "longitude": 42.729645
+  },
+  {
+    "id": 5,
+    "latitude": -73.676230,
+    "longitude": 42.729653
+  },
+  {
+    "id": 6,
+    "latitude": -73.676196,
+    "longitude": 42.729650
+  },
+  {
+    "id": 7,
+    "latitude": -73.676167,
+    "longitude": 42.729646
+  },
+  {
+    "id": 8,
+    "latitude": -73.676133,
+    "longitude": 42.729636
+  },
+  {
+    "id": 9,
+    "latitude": -73.676100,
+    "longitude": 42.729627
+  },
+  {
+    "id": 10,
+    "latitude": -73.676067,
+    "longitude": 42.729623
+  },
+  {
+    "id": 11,
+    "latitude": -73.676035,
+    "longitude": 42.729617
+  },
+  {
+    "id": 12,
+    "latitude": -73.675996,
+    "longitude": 42.729618
+  }
 ]
-  

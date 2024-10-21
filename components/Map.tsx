@@ -13,33 +13,39 @@ export default function Map(){
     <MapView style = {{flex:1}} >
         <Camera followZoomLevel={10} followUserLocation />
         <LocationPuck puckBearingEnabled  puckBearing = 'heading' pulsing={{isEnabled : true}}/>
-        <ShapeSource 
-            id = "car" 
-            cluster
-            shape = {featureCollection( spots )}>  
+        
+        <ShapeSource id = "car" cluster shape = {featureCollection(spots)}  onPress={(e) => console.log(JSON.stringify(e, null, 2))}>
+            <SymbolLayer
+                id = "clusters_count"
+                style={{
+                    textField: ['get', 'point_count'],
+                    textColor: '#000080',
+                    textSize: 16,
+                    textPitchAlignment: 'map',
+                    textFont: ['Arial Unicode MS Bold']
+  
+                }}
+            />
+
             <CircleLayer
                 id = 'cluster'
-                filter = {['has', 'point_counter']}
+                belowLayerID="clusters_count"
+                filter = {['has', 'point_count']}
                 style = {{
-                    circleColor: 'red',
+                    circleColor: '#FF7F50',
                     circlePitchAlignment: 'map',
                     circleRadius: 15,
                     circleOpacity: 0.7,
                     circleStrokeWidth: 2,
-                    circleStrokeColor: 'white'
+                    circleStrokeColor: 'white',
                 }}
-            
-            
-            
             />
 
-            
             <SymbolLayer
-                id="spots-icons"
-                filter = {['!', ['has', 'point_counter']]}
-                style={{
+                id= "spots-icons"
+                filter = {['!', ['has', 'point_count']]}
+                style= {{
                     iconImage: 'pin',
-                    //iconSize: 0.5,
                     iconAllowOverlap: true,
                     iconAnchor: 'bottom'
 

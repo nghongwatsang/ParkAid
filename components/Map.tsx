@@ -4,18 +4,30 @@ import {featureCollection, point } from '@turf/helpers';
 import pin from '../assets/car_green.png';
 import cars from '../data/spots.json'
 import routeResponse from '../data/routes.json'
+import { getDirections } from "~/services/directions";
+import { OnPressEvent } from "@rnmapbox/maps/lib/typescript/src/types/OnPressEvent";
+import { useState } from "react";
+import * as Location from 'expo-location';
 
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
 
 export default function Map(){
     const spots = cars.map((cars) => point([cars.latitude,cars.longitude]))
-    const routeData = routeResponse.routes[0].geometry.coordinates;
+    const [direction, setDirection] = useState();
+    const routeData = direction?.routes?.[0]?.geometry.coordinates;
+
+    const onPointPress = async(event: OnPressEvent) => {
+        const myLocation = await Location.getCurrentPositionAsync();
+        const newDirection = await getDirections([myLocation.coords.longitude, myLocation.coords.latitude],[event.coordinates.longitude,event.coordinates.latitude]);
+        setDirection(newDirection);
+    };
+
     return (
     <MapView style = {{flex:1}} >
         <Camera followZoomLevel={10} followUserLocation />
         <LocationPuck puckBearingEnabled  puckBearing = 'heading' pulsing={{isEnabled : true}}/>
         
-        <ShapeSource id = "car" cluster shape = {featureCollection(spots)}  onPress={(e) => console.log(JSON.stringify(e, null, 2))}>
+        <ShapeSource id = "car" cluster shape = {featureCollection(spots)}  onPress={onPointPress}>
             
             {/* Number Denoting how many are in a cluster */}
             <SymbolLayer
@@ -60,6 +72,7 @@ export default function Map(){
         {routeData &&  (
             <ShapeSource
                 id = 'routeSource'
+                
                 lineMetrics
                 shape ={{
                     properties: {},
@@ -68,7 +81,8 @@ export default function Map(){
                         type: 'LineString',
                         coordinates: routeData
                     },
-                }}>
+                }}
+                >
                 <LineLayer
                     id = 'lineLayer'
                     style={{

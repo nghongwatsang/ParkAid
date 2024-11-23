@@ -1,9 +1,10 @@
-import { PropsWithChildren, createContext, useContext } from "react"; 
+import { PropsWithChildren, createContext, useContext, useState } from "react"; 
 
 const spotContext = createContext({});
 
 export default function SpotProvider({children}: PropsWithChildren){
-    return <spotContext.Provider value =  {{}}> {children} </spotContext.Provider>;
+    const [selectedSpot, setSelectedSpot] = useState();
+    return <spotContext.Provider value =  {{selectedSpot, setSelectedSpot}}> {children} </spotContext.Provider>;
 }
 
 export const useSpot = () => useContext(spotContext);

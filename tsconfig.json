@@ -6,7 +6,10 @@
     "paths": {
       "~/*": ["*"]
     },
-    "jsx": "react-native" // Add this line
+    "jsx": "react-native",
+    "resolveJsonModule": true, 
+    "esModuleInterop": true,  
+    "moduleResolution": "node" 
   },
   "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

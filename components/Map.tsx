@@ -2,8 +2,8 @@ import Mapbox, {Camera, LocationPuck, MapView, ShapeSource, SymbolLayer, Images,
 import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 import {featureCollection, point } from '@turf/helpers';
 import pin from '../assets/car_green.png';
-import cars from '../data/spots.json'
-import routeResponse from '../data/routes.json'
+import cars from '../data/spots.json';
+import routeResponse from '../data/routes.json';
 import { getDirections } from "~/services/directions";
 import { OnPressEvent } from "@rnmapbox/maps/lib/typescript/src/types/OnPressEvent";
 import { useState } from "react";

@@ -9,6 +9,7 @@ import { useSpot } from "~/provider/SpotProvider";
 export default function CarMarker(){
     const spots = cars.map((cars) => point([cars.latitude,cars.longitude], {cars}))
     const {setSelectedSpot} = useSpot();
+    
     const onPointPress = async(event: OnPressEvent) => {
         if (event.features[0].properties?.cars){
             setSelectedSpot(event.features[0].properties.cars);

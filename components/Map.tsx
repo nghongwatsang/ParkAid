@@ -8,18 +8,24 @@ import { getDirections } from "~/services/directions";
 import { OnPressEvent } from "@rnmapbox/maps/lib/typescript/src/types/OnPressEvent";
 import { useState } from "react";
 import * as Location from 'expo-location';
+import { useSpot } from "~/provider/SpotProvider";
 
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
 
 export default function Map(){
-    const spots = cars.map((cars) => point([cars.latitude,cars.longitude]))
+    const spots = cars.map((cars) => point([cars.latitude,cars.longitude], {cars}))
     const [direction, setDirection] = useState();
+
+    const {setSelectedSpot} = useSpot();
+
     const routeData = direction?.routes?.[0]?.geometry.coordinates;
 
     const onPointPress = async(event: OnPressEvent) => {
-        const myLocation = await Location.getCurrentPositionAsync();
-        const newDirection = await getDirections([myLocation.coords.longitude, myLocation.coords.latitude],[event.coordinates.longitude,event.coordinates.latitude]);
-        setDirection(newDirection);
+        if (event.features[0].properties?.cars){
+            setSelectedSpot(event.features[0].properties.cars);
+        }
+        
+
     };
 
     return (

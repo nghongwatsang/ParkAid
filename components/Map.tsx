@@ -3,22 +3,17 @@ import { isEnabled } from "react-native/Libraries/Performance/Systrace";
 import {featureCollection, point } from '@turf/helpers';
 import pin from '../assets/car_green.png';
 import cars from '../data/spots.json';
-import routeResponse from '../data/routes.json';
-import { getDirections } from "~/services/directions";
 import { OnPressEvent } from "@rnmapbox/maps/lib/typescript/src/types/OnPressEvent";
-import { useState } from "react";
-import * as Location from 'expo-location';
 import { useSpot } from "~/provider/SpotProvider";
 
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_KEY || '');
 
 export default function Map(){
     const spots = cars.map((cars) => point([cars.latitude,cars.longitude], {cars}))
-    const [direction, setDirection] = useState();
+    
 
-    const {setSelectedSpot} = useSpot();
+    const {setSelectedSpot, routeData, routeTime} = useSpot();
 
-    const routeData = direction?.routes?.[0]?.geometry.coordinates;
 
     const onPointPress = async(event: OnPressEvent) => {
         if (event.features[0].properties?.cars){

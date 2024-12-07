@@ -6,6 +6,8 @@ const spotContext = createContext({});
 
 export default function SpotProvider({children}: PropsWithChildren){
     const [selectedSpot, setSelectedSpot] = useState();
+    const [direction, setDirection] = useState();
+
     useEffect(() => {
         const fetch =async () => {
             const myLocation = await Location.getCurrentPositionAsync();
@@ -16,7 +18,14 @@ export default function SpotProvider({children}: PropsWithChildren){
             fetch();
         }
     })
-    return <spotContext.Provider value =  {{selectedSpot, setSelectedSpot}}> {children} </spotContext.Provider>;
+    return <spotContext.Provider value =  {{
+        selectedSpot, 
+        setSelectedSpot, 
+        direction, 
+        routeData: direction?.routes?.[0]?.geometry.coordinates,
+        routeTime: direction?.routes?.duration,
+        routeDistance: direction?.routes?.distance
+    }}> {children} </spotContext.Provider>;
 }
 
 export const useSpot = () => useContext(spotContext);

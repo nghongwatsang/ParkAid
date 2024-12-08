@@ -6,17 +6,18 @@ import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 import { ScreenContent } from '~/components/ScreenContent';
 import bottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet';
+import { BottomSheetView } from '@gorhom/bottom-sheet';
 
 export default function Home() {
   return (
     <>
       <Stack.Screen options={{ title: 'Home', headerShown:false }} />
       <Map/>
-      <BottomSheet
-        ref = {bottomSheetRef}
-        onChange = {handleSheetChanges}
-        >
-        
+      <BottomSheet  index = {-1} snapPoints={[150, '45%']} enablePanDownToClose>
+        <BottomSheetView style = {{styles.contentContainer}}>
+          <Text> OVERLAY FEATURE</Text>
+        </BottomSheetView>
+
       </BottomSheet>
     </>
   );
